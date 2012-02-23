@@ -28,11 +28,14 @@ private:
 	QString oldLine;
 	QAction *setDelayAction;
 	QAction *setLevelAction;
+	QAction *setRandomizationAction;
 	QMenu *menu;
 	QWidget *widget;
 	int wordCount;
 	int interval;
 	int level;
+	int wordIndex;
+	bool randomize;
 
 	void setLabels();
 	void setStrings();
@@ -44,6 +47,7 @@ private:
 	private slots:
 	void setDelay();
 	void setLevel();
+	void setRandomization();
 	void updateUI();
 };
 

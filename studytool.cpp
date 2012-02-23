@@ -44,13 +44,16 @@ void StudyTool::createMenu()
 {
 	setDelayAction = new QAction(tr("Set &Delay"), this);
 	setLevelAction = new QAction(tr("Set JLPT &Level"), this);
+	setRandomizationAction = new QAction(tr("Set &Randomization"), this);
 
 	connect(setDelayAction, SIGNAL(triggered()), this, SLOT(setDelay()));
 	connect(setLevelAction, SIGNAL(triggered()), this, SLOT(setLevel()));
+	connect(setRandomizationAction, SIGNAL(triggered()), this, SLOT(setRandomization()));
 
 	menu = this->menuBar()->addMenu("&Configure");
 	menu->addAction(setDelayAction);
 	menu->addAction(setLevelAction);
+	menu->addAction(setRandomizationAction);
 }
 
 void StudyTool::createLayout()
@@ -109,7 +112,8 @@ void StudyTool::setLabels()
 	QString line;
 	do
 	{
-		line = strings.at(qrand() % wordCount);
+		wordIndex = randomize ? qrand() % wordCount : ++wordIndex % wordCount;
+		line = strings.at(wordIndex);
 	} while(oldLine == line);
 	oldLine = line;
 
@@ -168,6 +172,22 @@ void StudyTool::setLevel()
 		wordCount = strings.length();
 		break;
 	}
+}
+
+void StudyTool::setRandomization()
+{
+	bool ok;
+	QStringList items;
+	items << "Randomize" << "Don't Randomize";
+	QString inputRandomization = QInputDialog::getItem(
+			this,
+			"Set the Randomization",
+			"Randomization: ",
+			items,
+			randomize ? 0 : 1,
+			true,
+			&ok);
+	randomize = ok ? items.at(0) == inputRandomization : randomize;
 }
 
 #endif
