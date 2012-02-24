@@ -42,9 +42,9 @@ void StudyTool::createTimer()
 
 void StudyTool::createMenu()
 {
-	setDelayAction = new QAction(tr("Set &Delay"), this);
-	setLevelAction = new QAction(tr("Set JLPT &Level"), this);
-	setRandomizationAction = new QAction(tr("Set &Randomization"), this);
+	setDelayAction = new QAction("Set &Delay", this);
+	setLevelAction = new QAction("Set JLPT &Level", this);
+	setRandomizationAction = new QAction("Set &Randomization", this);
 
 	connect(setDelayAction, SIGNAL(triggered()), this, SLOT(setDelay()));
 	connect(setLevelAction, SIGNAL(triggered()), this, SLOT(setLevel()));
